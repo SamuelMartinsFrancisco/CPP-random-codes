@@ -1,0 +1,50 @@
+void Hash::retrieveItem(Aluno &aluno, bool &found) {
+    int start_index = getHash(aluno);
+    bool keep_looking = true;
+    int index = start_index;
+
+    do {
+        if ((structure[index].getRa() == aluno.getRa()) || (structure[index].getRa() == -1)) {
+                keep_looking = false;
+        } else {
+            index = (index + 1) % max_items;
+        }
+    } while ((index != start_index) && keep_looking);
+
+    found = (structure[index].getRa() == aluno.getRa());
+    if (found) {
+        aluno = structure[index];
+    }
+}
+
+void Hash::deleteItem(Aluno aluno) {
+    int start_index = getHash(aluno);
+    bool keep_looking = true;
+    int index = start_index;
+
+    do {
+        if ((structure[index].getRa() == aluno.getRa()) || (structure[index].getRa() == -1)) {
+            keep_looking = false;
+        } else {
+            index = (index + 1) % max_items;
+        }
+    } while ((index != start_index) && keep_looking);
+
+    if (structure[index].getRa() == aluno.getRa()) {
+        structure[index] = Aluno(-2, "");
+        length--;
+    }
+}
+
+void Hash::insertItem(Aluno aluno) {
+    int index;
+    index = getHash(aluno);
+    
+    while (structure[index].getRa() > 0) {
+        index = (index + 1) % max_items;
+    }
+    // atenção: se o vetor estiver cheio a busca não vai terminar
+
+    structure[index] = aluno;
+    length++;
+}

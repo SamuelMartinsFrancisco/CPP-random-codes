@@ -1,0 +1,22 @@
+void Hash::retrieveItem(Aluno &aluno, bool &found) {
+    int location = getHash(aluno);
+    Aluno aux = structure[location];
+    if (aux.getRa() == -1) {
+        found = false;
+    } else {
+        found = true;
+        aluno = aux;
+    }
+}
+
+void Hash::insertItem(Aluno aluno) {
+    int location = getHash(aluno);
+    structure[location] = aluno;
+    length++;
+}
+
+void Hash::deleteItem(Aluno aluno) {
+    int location = getHash(aluno);
+    structure[location] = Aluno();
+    length--;
+}
